@@ -37,7 +37,7 @@ export const sampleEvents =  [
     },
     {
         id: 5,
-        type: "Sneezing",
+        type: "sneezing",
         title: "Sneezing fits",
         date: "2025-08-13T21:30:00",
         severity: "Mild",
@@ -46,7 +46,7 @@ export const sampleEvents =  [
     },
     {
         id: 6,
-        type: "Weight",
+        type: "weight",
         title: "Weight check - 9.3lbs",
         date: "2025-12-28T14:15:10",
         severity: null, 
