@@ -8,9 +8,8 @@ function App() {
 
   return (
     <div className='min-h-screen bg-stone-100 p-8'>
+      <h1 className='text-2xl font-bold mb-6'>KittyCare</h1>
       <Timeline events={sampleEvents}/>
-      {/* <h1 className='text-2xl font-bold mb-6'>KittyCare</h1>
-      {sampleEvents.map(event => <EventCard key={event.id} event={event} />)} */}
     </div>
   )
 }
