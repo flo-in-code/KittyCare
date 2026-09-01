@@ -25,13 +25,17 @@ function groupByMonth(events) {
 function Timeline({ events }) {
     const groupedEvents = groupByMonth(events)
     return (
-        <div>
+        <div className='space-y-12'>
             {/* Object.entries(obj) turns event data into an array of arrays: [[july 2026: [{id: 1, type: "injury", title: "Limping....}, {id: 5, type: "vaccine", title: "FCVRP....}]], [october 2026:[{id: 3, type: "sneezing", title: "Sneezing fits....}]] ] */}
             {/* There are two items in the inner array month-year and array of objects */}
             {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => {
                 return <div key={monthYear}>
                     {/* each month-year section will generate the associated events */}
-                    <h2>{monthYear}</h2>
+                    <h2 className='flex uppercase font-semibold tracking-wide items-center '>
+                        <span className='flex-1 border-t border-stone-300'></span>
+                        <span className='p-2 text-stone-500'>{monthYear}</span>
+                        <span className='flex-1 border-t border-stone-300'></span>
+                    </h2>
                     <div>{monthEvents.map((event => <EventCard key={event.id} event={event} />))}</div>
                 </div>
             })}
