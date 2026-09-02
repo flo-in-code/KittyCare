@@ -1,20 +1,4 @@
-const sampleCatProfiles = [
-    {
-        id: 1,
-        name: "Mochi",
-        breed: "British Shorthair",
-    },
-    {
-        id: 2,
-        name: "Oliver",
-        breed: "Scottish Fold"
-    },
-    {
-        id: 3,
-        name: "Kyo",
-        breed: "Scottish Fold"
-    }
-]
+import {sampleCatProfiles} from '../data/sampleCats.js'
 
 const navItems =[
     {id: 1, item: "Timeline"}, {id: 2, item: "Calendar"}, {id: 3, item: "Appointment"}, {id: 4, item: "Vet Prep"}
