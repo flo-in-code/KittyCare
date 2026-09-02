@@ -27,6 +27,7 @@ function Timeline({ events }) {
     console.log(groupedEvents)
     return (
         <div className='space-y-12'>
+            {events.length===0 && <p>No Events Yet</p>}
             {/* Object.entries(obj) turns event data into an array of arrays: [[july 2026: [{id: 1, type: "injury", title: "Limping....}, {id: 5, type: "vaccine", title: "FCVRP....}]], [october 2026:[{id: 3, type: "sneezing", title: "Sneezing fits....}]] ] */}
             {/* There are two items in the inner array month-year and array of objects */}
             {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => {
