@@ -1,11 +1,11 @@
-import {sampleCatProfiles} from '../data/sampleCats.js'
+//import {sampleCatProfiles} from '../data/sampleCats.js'
 import { useState } from 'react'
 
 const navItems =[
     {id: 1, item: "Timeline"}, {id: 2, item: "Calendar"}, {id: 3, item: "Appointment"}, {id: 4, item: "Vet Prep"}
 ]
 
-function Sidebar() {
+function Sidebar({cats, selectedCatId, setSelectedCatId}) {
     const [activeView, setActiveView] = useState('Timeline')
 
     return (
@@ -43,12 +43,12 @@ function Sidebar() {
             <div className="">
                 <h2 className="uppercase text-xs font-semibold tracking-wide text-stone-500 my-2 text-center">Active cat</h2>
                 <div className="flex flex-col">
-                    {sampleCatProfiles.map((cat)=> {
-                        return <button key={cat.id} className="flex justify-center px-3 py-2 bg-taupe-100 rounded-lg hover:bg-stone-500 m-3">
-                            <img src="" alt="" />
+                    {cats.map((cat)=> {
+                        return <button key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-center px-3 py-2 ${selectedCatId === cat.id? 'bg-emerald-700 text-white': 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3`}>
+                            {/* <img src="" alt="" /> */}
                             <div>
                                 <p>{cat.name}</p>
-                                <p>{cat.breed}</p>
+                                <p className='text-sm opacity-60'>{cat.breed}</p>
                             </div>
                         </button>
 
