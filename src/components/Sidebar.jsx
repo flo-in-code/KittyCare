@@ -1,10 +1,13 @@
 import {sampleCatProfiles} from '../data/sampleCats.js'
+import { useState } from 'react'
 
 const navItems =[
     {id: 1, item: "Timeline"}, {id: 2, item: "Calendar"}, {id: 3, item: "Appointment"}, {id: 4, item: "Vet Prep"}
 ]
 
 function Sidebar() {
+    const [activeView, setActiveView] = useState('Timeline')
+
     return (
         <div className="bg-white py-8">
             {/* Logo and App Name ----------------------------------------- */}
@@ -57,9 +60,10 @@ function Sidebar() {
             {/* Navigation buttons ----------------------------------------*/}
             <div className="flex flex-col">
                 {navItems.map((nav) => {
-                    return <button  key={nav.id}className="px-3 py-2 m-3 rounded-lg bg-stone-200">
+                    return <button  key={nav.id} onClick={() => setActiveView(nav.item)} className={`px-3 py-2 m-3 rounded-lg ${activeView === nav.item? 'bg-emerald-700 text-white': 'bg-stone-200'} `}>
                         {nav.item}
                         </button>
+                        // depending which button is clicked, activeView will be set to the nav.item of that button
                 })}
             </div>
         </div>
