@@ -41,8 +41,8 @@ function EventForm({ addEvent }) {
             <h4>{`for CAT NAME`}</h4>
             <div className="border-t border-stone-300"></div>
             {/* Category Selection ------------------------------- */}
+            {/* control the value of the field with value - and helps clear the form after  */}
             <p className="text-sm font-semibold text-stone-700 mt-2">What happened?</p>
-            <select className="border border-stone-300 bg-taupe-100 pl-2 py-1 rounded-md">
             <select value={type} onChange={(e) => setType(e.target.value)} className="border border-stone-300 bg-taupe-100 pl-2 py-1 rounded-md">
                 <option value="" disabled selected>Select an option</option>
                 <option value="behavior">Behavior</option>
@@ -84,6 +84,8 @@ function EventForm({ addEvent }) {
             <div>
                 <p className="text-sm font-semibold text-stone-700 py-2 mt-2">Upload photos or video</p>
             </div>
+            {/* Cancel and Submit buttons --------------------------------- */}
+            {/* buttons in a form default type is submit. change type to button to make it a non-submit button */}
             <div className="flex gap-2">
                 <button type="button" onClick={resetForm}  className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
                 <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save Event</button>
