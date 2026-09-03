@@ -1,6 +1,7 @@
 export const sampleEvents =  [
     {
         id: 1, 
+        catId: 1,
         type: "injury",
         title: "Limping on front left paw",
         date: "2026-06-05T09:30:00",
@@ -10,6 +11,7 @@ export const sampleEvents =  [
     },
     {
         id: 2, 
+        catId: 1,
         type: "medication",
         title: "Started prednisolone 5mg",
         date: "2026-05-28T08:00:00",
@@ -19,6 +21,7 @@ export const sampleEvents =  [
     },
     {
         id: 3, 
+        catId: 1,
         type: "vomiting",
         title: "Vomiting - 3x in one morning",
         date: "2026-07-26T11:23:00",
@@ -28,6 +31,7 @@ export const sampleEvents =  [
     },
     {
         id: 4,
+        catId: 2,
         type: "vaccine",
         title: "FVRCP Booster",
         date: "2026-04-12T04:15:23",
@@ -37,6 +41,7 @@ export const sampleEvents =  [
     },
     {
         id: 5,
+        catId: 2,
         type: "sneezing",
         title: "Sneezing fits",
         date: "2025-08-13T21:30:00",
@@ -46,6 +51,7 @@ export const sampleEvents =  [
     },
     {
         id: 6,
+        catId: 2,
         type: "weight",
         title: "Weight check - 9.3lbs",
         date: "2025-12-28T14:15:10",
