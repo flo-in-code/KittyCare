@@ -1,8 +1,9 @@
 import { useState } from "react"
 
 
-function CatSelector({ cats, selectedCatId, setSelectedCatId }) {
+function CatSelector({ cats, selectedCatId, setSelectedCatId, setCats }) {
     const [dropdownState, setDropdownState] = useState(false)
+    const [isAddingCat, setIsAddingCat] = useState(false) //isAdding tracks the state of whether the user has clicked on the add a cat button
 
     const selectedCat = cats.find((cat) => cat.id === selectedCatId)
 
@@ -37,7 +38,7 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId }) {
                                     </div>
                                 </button>
                             })}
-                            <button className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
+                            <button onClick={() => {setIsAddingCat(true); setDropdownState(false)}} className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
                         </div>
 
                     </div>

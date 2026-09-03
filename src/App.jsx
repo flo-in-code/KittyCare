@@ -7,6 +7,7 @@ import Timeline from './components/Timeline'
 import Sidebar from './components/Sidebar'
 import EventForm from './components/EventForm'
 import { useState } from 'react'
+import AddCatForm from './components/AddCatForm'
 
 function App() {
   //events
@@ -30,11 +31,15 @@ function App() {
     //do not log events here because in here, React hasn't refreshed yet so you will not be logging the event after the newEventObject is added
   }
 
+  function addCats(newCat){
+    setCats([...cats, newCat])
+  }
+
   
 
   return (
     <div className=' flex min-h-screen bg-stone-100 pr-8 space-x-4'>
-      <Sidebar cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} />
+      <Sidebar cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} setCats={setCats} />
 
 
       {/* <EventForm addEvent={addNewEvent} />  */}
@@ -42,10 +47,11 @@ function App() {
       {/* the addNewEvent function is being passed as a prop to EventForm. The EventForm component will unpack the props object receive it as addEvent*/}
       
       {/* Timeline of Events -------------------------------------------- */}
-      <div className='flex-1 py-8'>
+      {/* <div className='flex-1 py-8'>
         <h1 className='text-2xl font-bold mb-6'>Timeline of Events</h1>
         <Timeline events={relevantEvents} />
-      </div>
+      </div> */}
+      <AddCatForm />
     </div>
   )
 }
