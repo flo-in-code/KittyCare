@@ -1,5 +1,6 @@
 //import {sampleCatProfiles} from '../data/sampleCats.js'
 import { useState } from 'react'
+import CatSelector from './CatSelector'
 
 const navItems =[
     {id: 1, item: "Timeline"}, {id: 2, item: "Calendar"}, {id: 3, item: "Appointment"}, {id: 4, item: "Vet Prep"}
@@ -9,7 +10,7 @@ function Sidebar({cats, selectedCatId, setSelectedCatId}) {
     const [activeView, setActiveView] = useState('Timeline')
 
     return (
-        <div className="bg-white py-8">
+        <div className="bg-white py-8 w-50">
             {/* Logo and App Name ----------------------------------------- */}
             <div className="flex space-x-2 px-2 mb-2">
                 <div>
@@ -40,12 +41,17 @@ function Sidebar({cats, selectedCatId, setSelectedCatId}) {
             {/* divider */}
             <div className="border-t border-stone-300"></div>
             {/* Active Cat ------------------------------------------------*/}
-            <div className="">
+            <div className='w-full px-3 my-2'>
+                <CatSelector cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId}/>
+            </div>
+            
+            
+            {/* <div className="">
                 <h2 className="uppercase text-xs font-semibold tracking-wide text-stone-500 my-2 text-center">Active cat</h2>
                 <div className="flex flex-col">
                     {cats.map((cat)=> {
                         return <button key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-center px-3 py-2 ${selectedCatId === cat.id? 'bg-emerald-700 text-white': 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3`}>
-                            {/* <img src="" alt="" /> */}
+                            <img src="" alt="" />
                             <div>
                                 <p>{cat.name}</p>
                                 <p className='text-sm opacity-60'>{cat.breed}</p>
@@ -54,7 +60,7 @@ function Sidebar({cats, selectedCatId, setSelectedCatId}) {
 
                     })}
                 </div>
-            </div>
+            </div> */}
             {/* divider */}
             <div className="border-t border-stone-300"></div>
             {/* Navigation buttons ----------------------------------------*/}
