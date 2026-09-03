@@ -23,13 +23,13 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId }) {
             {dropdownState && (
                 <>
                     {/* add a layer across the screen so users can close the dropdown by clicking outside */}
-                    <div onClick={() => setDropdownState(false)} className="fixed inset-0"></div>
+                    <div onClick={() => setDropdownState(false)} className="fixed inset-0 z-10"></div>
 
                     <div className=" border border-stone-300 rounded-lg my-2">
                         <p className="text-sm opacity-50 pl-3 pt-1 ">Select a cat: </p>
                         <div className="flex flex-col">
                             {cats.map((cat) => {
-                                return <button key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-center px-3 py-2 ${selectedCatId === cat.id ? 'bg-emerald-700 text-white' : 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3`}>
+                                return <button key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-center px-3 py-2 ${selectedCatId === cat.id ? 'bg-emerald-700 text-white' : 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3 z-20`}>
                                     {/* <img src="" alt="" /> */}
                                     <div>
                                         <p>{cat.name}</p>
@@ -37,6 +37,7 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId }) {
                                     </div>
                                 </button>
                             })}
+                            <button className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
                         </div>
 
                     </div>
