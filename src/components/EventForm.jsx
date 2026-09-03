@@ -70,11 +70,12 @@ function EventForm({ addEvent }) {
             {/* "Severity tag" ---------------------------------------*/}
             <label htmlFor="" className="text-sm font-semibold text-stone-700 mt-2">Severity</label>
             <div className="flex gap-2">
-                <button className="border border-stone-300 rounded-md px-4 py-2 text-stone-700">Mild</button>
-                <button className="border border-stone-300 rounded-md px-4 py-2 text-stone-700">Moderate</button>
-                <button className="border border-stone-300 rounded-md px-4 py-2 text-stone-700">Severe</button>
+                <button type="button" onClick={() => setSeverity('Mild')} className={`border ${severity === 'Mild'? 'bg-olive-300': ''} border-stone-300 rounded-md px-4 py-2 text-stone-700`}>Mild</button>
+                <button type="button" onClick={() => setSeverity('Moderate')} className={`border ${severity === 'Moderate'? 'bg-stone-200': ''} border-stone-300 rounded-md px-4 py-2 text-stone-700`}>Moderate</button>
+                <button type="button" onClick={() => setSeverity('Severe')} className={`border ${severity === 'Severe'? 'bg-stone-200': ''} border-stone-300 rounded-md px-4 py-2 text-stone-700`}>Severe</button>
             </div>
             {/* Vet Prep Flag ---------------------------------------*/}
+            {/* checked controls whether a checkbox is checked */}
             <div className="flex gap-1 py-2 mt-2">
                 <input type="checkbox" checked={vetPrepFlag} onChange={(e) => setVetPrepFlag(e.target.checked)}></input>
                 <p className="text">Flag for vet appointment prep</p>
