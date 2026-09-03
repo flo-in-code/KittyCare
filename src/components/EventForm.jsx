@@ -22,10 +22,20 @@ function EventForm({ addEvent }) {
             vetFlagged: vetPrepFlag
         })
 
+        //reset the state variable after the form has been submitted
         resetForm()
     }
+
+    function resetForm(){
+        setType('')
+        setDate('')
+        setTitle('')
+        setNotes('')
+        setSeverity('')
+        setVetPrepFlag(false)
+    }
+
     return (
-        <form className="flex flex-col py-6 px-8 bg-white rounded-2xl m-8 space-y-2">
         <form onSubmit={submitHandler} className="flex flex-col py-6 px-8 bg-white rounded-2xl m-8 space-y-2">
             <h1 className="text-xl font-bold ">{`Log Health Event`}</h1>
             <h4>{`for CAT NAME`}</h4>
@@ -74,7 +84,7 @@ function EventForm({ addEvent }) {
                 <p className="text-sm font-semibold text-stone-700 py-2 mt-2">Upload photos or video</p>
             </div>
             <div className="flex gap-2">
-                <button className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
+                <button type="button" onClick={resetForm}  className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
                 <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save Event</button>
             </div>
 
