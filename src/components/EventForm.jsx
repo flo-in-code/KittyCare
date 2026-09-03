@@ -1,13 +1,39 @@
+import { useState } from "react"
 
-function EventForm() {
+function EventForm({ addEvent }) {
+    //creating one useState per field to track state changes
+    const [type, setType] = useState('') //initialize type value as '', sets type field as ''
+    const [date, setDate] = useState('')
+    const [title, setTitle] = useState('')
+    const [notes, setNotes] = useState('')
+    const [severity, setSeverity] = useState('')
+    const [vetPrepFlag, setVetPrepFlag] = useState(false)
+
+    function submitHandler(e){
+        e.preventDefault() //prevents eventform from reloading after submit
+
+        addEvent({
+            id: crypto.randomUUID(), //generates unique ID
+            type: type,
+            title: title, 
+            notes: notes,
+            date: new Date(date).toISOString(), //converting to ISO string to keep data uniform
+            severity: severity,
+            vetFlagged: vetPrepFlag
+        })
+
+        resetForm()
+    }
     return (
         <form className="flex flex-col py-6 px-8 bg-white rounded-2xl m-8 space-y-2">
+        <form onSubmit={submitHandler} className="flex flex-col py-6 px-8 bg-white rounded-2xl m-8 space-y-2">
             <h1 className="text-xl font-bold ">{`Log Health Event`}</h1>
             <h4>{`for CAT NAME`}</h4>
             <div className="border-t border-stone-300"></div>
             {/* Category Selection ------------------------------- */}
             <p className="text-sm font-semibold text-stone-700 mt-2">What happened?</p>
             <select className="border border-stone-300 bg-taupe-100 pl-2 py-1 rounded-md">
+            <select value={type} onChange={(e) => setType(e.target.value)} className="border border-stone-300 bg-taupe-100 pl-2 py-1 rounded-md">
                 <option value="" disabled selected>Select an option</option>
                 <option value="behavior">Behavior</option>
                 <option value="diet">Diet</option>
@@ -23,13 +49,13 @@ function EventForm() {
             </select>
             {/* Date & Time -------------------------------- */}
             <label htmlFor="" className="text-sm font-semibold text-stone-700 mt-2">Date & Time</label>
-            <input type="datetime-local" className="border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1"></input>
+            <input required type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1"></input>
             {/* Title ---------------------------------------*/}
             <label htmlFor="" className="text-sm font-semibold text-stone-700 mt-2">Title</label>
-            <input type="text" placeholder="e.g. Vomiting 3x in one morning" className="border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1" ></input>
+            <input required type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Vomiting 3x in one morning" className="border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1" ></input>
             {/* Notes & Details ---------------------------------------*/}
             <label className="text-sm font-semibold text-stone-700 mt-2">Notes & Details</label>
-            <textarea name="" id="" placeholder="When did it start? How often? Any other symptoms? What did you observe?"
+            <textarea name="" id="" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="When did it start? How often? Any other symptoms? What did you observe?"
                 className="h-32 border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1"></textarea>
             {/* "Severity tag" ---------------------------------------*/}
             <label htmlFor="" className="text-sm font-semibold text-stone-700 mt-2">Severity</label>
@@ -40,7 +66,7 @@ function EventForm() {
             </div>
             {/* Vet Prep Flag ---------------------------------------*/}
             <div className="flex gap-1 py-2 mt-2">
-                <input type="checkbox"></input>
+                <input type="checkbox" checked={vetPrepFlag} onChange={(e) => setVetPrepFlag(e.target.checked)}></input>
                 <p className="text">Flag for vet appointment prep</p>
             </div>
             {/* Photo & Video Upload ---------------------------------------*/}
