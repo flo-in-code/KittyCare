@@ -44,6 +44,8 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, setCats }) {
                     </div>
                 </>
             )}
+            {/* AddCatForm opens  */}
+            {isAddingCat && <AddCatForm />}
 
         </div>
     )
