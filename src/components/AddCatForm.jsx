@@ -97,7 +97,7 @@ function AddCatForm({ addCats }) {
                 {/* buttons in a form default type is submit. change type to button to make it a non-submit button */}
                 <div className="flex gap-2 py-2">
                     <button type="button" className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
-                    <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save Event</button>
+                    <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save New Cat</button>
                 </div>
             </form>
         </div>
