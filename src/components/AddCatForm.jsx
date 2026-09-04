@@ -41,7 +41,7 @@ function AddCatForm({ addCats }) {
 
 
     return (
-        <div >
+        <div className="fixed inset-0 z-30 bg-black/40 flex items-center justify-center">
             <form onSubmit={submitHandler} className="bg-white rounded-2xl p-6 min-w-sm max-w-md space-y-4">
                 <div className="flex justify-between pb-3 border-b border-stone-300">
                     <div className="font-bold text-xl text-stone-800">Add a Cat</div>
