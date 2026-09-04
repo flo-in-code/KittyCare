@@ -50,16 +50,16 @@ function AddCatForm({ addCats }) {
                 {/* Name ---------------------------------------------------------------------------------- */}
                 <div>
                     <label className="text-sm font-semibold text-stone-700 mt-2">Name *</label>
-                    <input type="text" value={catName} onChange={(e) => setCatName(e.target.value)} placeholder="e.g. Mochi" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
+                    <input required type="text" value={catName} onChange={(e) => setCatName(e.target.value)} placeholder="e.g. Mochi" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
                 </div>
                 {/* Breed ---------------------------------------------------------------------------------- */}
                 <div>
-                    <label className="text-sm font-semibold text-stone-700 mt-2">Breed *</label>
+                    <label className="text-sm font-semibold text-stone-700 mt-2">Breed</label>
                     <input type="text" value={catBreed} onChange={(e) => setCatBreed(e.target.value)} placeholder="e.g. Scottish Fold" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
                 </div>
                 {/* Color/Markings ---------------------------------------------------------------------------------- */}
                 <div>
-                    <label className="text-sm font-semibold text-stone-700 mt-2">Color/Markings *</label>
+                    <label className="text-sm font-semibold text-stone-700 mt-2">Color/Markings</label>
                     <input type="text" value={catColorMarkings} onChange={(e) => setCatColorMarkings(e.target.value)} placeholder="e.g. Orange Tabby" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
                 </div>
                 {/* Birthday & Weight ---------------------------------------------------------------------------------- */}
