@@ -10,7 +10,7 @@ function Sidebar({cats, selectedCatId, setSelectedCatId, addCats}) {
     const [activeView, setActiveView] = useState('Timeline')
 
     return (
-        <div className="bg-white py-8 w-50">
+        <div className="bg-white py-8 w-52">
             {/* Logo and App Name ----------------------------------------- */}
             <div className="flex space-x-2 px-2 mb-2">
                 <div>
