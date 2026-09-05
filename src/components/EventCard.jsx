@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 // import React from 'react'
 const typeStyles = {
   injury: "bg-blue-50 text-blue-700",
@@ -19,6 +21,8 @@ const typeStyles = {
 
 function EventCard({ event, deleteEvent }) {
   const eventDate = new Date(event.date) //turn event.date (ISO string) into a date object
+
+  const [isViewingComments, setIsViewingComments] = useState(false)
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-4 m-2">
@@ -53,7 +57,7 @@ function EventCard({ event, deleteEvent }) {
 
           </div>
           {/* expand icon */}
-          <div>
+          <div onClick={() => setIsViewingComments(!isViewingComments)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -74,10 +78,19 @@ function EventCard({ event, deleteEvent }) {
 
       </div>
 
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between items-end pb-4">
         <h3 className="font-semibold text-stone-800">{event.title}</h3>
         <span className={`text-xs py-2 px-2 rounded-full ${typeStyles[event.type]}`}>{event.type}</span>
       </div>
+
+      {/* Comments */}
+      {isViewingComments && (
+        <>
+          <p className="pt-4 border-t border-stone-300 font-semibold">Notes:</p>
+          <div className="">{event.notes}</div>
+        </>
+
+      )}
 
     </div>
   )
