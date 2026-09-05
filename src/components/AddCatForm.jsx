@@ -13,7 +13,7 @@ function AddCatForm({ addCats, closeForm }) {
     function submitHandler(e) {
         e.preventDefault()
         addCats({
-            id: crypto.randomUUID,
+            id: crypto.randomUUID(),
             name: catName,
             breed: catBreed,
             color: catColorMarkings,
