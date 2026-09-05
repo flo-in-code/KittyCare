@@ -6,7 +6,7 @@ export const sampleEvents =  [
         title: "Limping on front left paw",
         date: "2026-06-05T09:30:00",
         severity:"Mild",
-        vetFlagged: "true",
+        vetFlagged: true,
         notes: "Favoring the paw after jumping off the bookshelf."
     },
     {
@@ -26,7 +26,7 @@ export const sampleEvents =  [
         title: "Vomiting - 3x in one morning",
         date: "2026-07-26T11:23:00",
         severity: "Moderate",
-        vetFlagged: "false",
+        vetFlagged: false,
         notes: "Vomited undigested kibble and bile on the third round. Ate breakfast but seemed subdued afterwards. Drinking water normally."
     },
     {
@@ -36,7 +36,7 @@ export const sampleEvents =  [
         title: "FVRCP Booster",
         date: "2026-04-12T04:15:23",
         severity: null,
-        vetFlagged: "false",
+        vetFlagged: false,
         notes: "next booster due April 2027"
     },
     {
@@ -56,7 +56,38 @@ export const sampleEvents =  [
         title: "Weight check - 9.3lbs",
         date: "2025-12-28T14:15:10",
         severity: null, 
-        vetFlagged: null,
+        vetFlagged: false,
         notes: null
-    }
+    },
+    {
+        id: 7, 
+        catId: 1,
+        type: "vomiting",
+        title: "Vomiting - 3x in one morning",
+        date: "2026-07-26T11:23:00",
+        severity: "Moderate",
+        vetFlagged: false,
+        notes: "Vomited undigested kibble and bile on the third round. Ate breakfast but seemed subdued afterwards. Drinking water normally."
+    },
+    {
+        id: 8, 
+        catId: 1,
+        type: "vomiting",
+        title: "Vomiting - 3x in one morning",
+        date: "2022-07-26T11:23:00",
+        severity: "Moderate",
+        vetFlagged: false,
+        notes: "Vomited undigested kibble and bile on the third round. Ate breakfast but seemed subdued afterwards. Drinking water normally."
+    },
+    {
+        id: 9, 
+        catId: 1,
+        type: "vomiting",
+        title: "Vomiting - 3x in one morning",
+        date: "2023-07-26T11:23:00",
+        severity: "Moderate",
+        vetFlagged: false,
+        notes: "Vomited undigested kibble and bile on the third round. Ate breakfast but seemed subdued afterwards. Drinking water normally."
+    },
+    
 ]
