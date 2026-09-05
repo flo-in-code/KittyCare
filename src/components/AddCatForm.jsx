@@ -25,6 +25,7 @@ function AddCatForm({ addCats, closeForm }) {
         })
 
         resetForm()
+        closeForm()
 
     }
 
