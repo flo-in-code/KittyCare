@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function AddCatForm({ addCats }) {
+function AddCatForm({ addCats, closeForm }) {
     const [catName, setCatName] = useState('')
     const [catBreed, setCatBreed] = useState('')
     const [catColorMarkings, setCatColorMarkings] = useState('')
@@ -41,11 +41,11 @@ function AddCatForm({ addCats }) {
 
 
     return (
-        <div className="fixed inset-0 z-30 bg-black/40 flex items-center justify-center">
-            <form onSubmit={submitHandler} className="bg-white rounded-2xl p-6 min-w-sm max-w-md space-y-4">
+        <div onClick={() => closeForm()} className="fixed inset-0 z-30 bg-black/40 flex items-center justify-center">
+            <form onSubmit={submitHandler} onClick={(e)=> e.stopPropagation()} className="bg-white rounded-2xl p-6 min-w-sm max-w-md space-y-4">
                 <div className="flex justify-between pb-3 border-b border-stone-300">
                     <div className="font-bold text-xl text-stone-800">Add a Cat</div>
-                    <div className="text-stone-800 font-semibold">x</div>
+                    <div onClick={closeForm} className="text-stone-800 font-semibold">x</div>
                 </div>
                 {/* Name ---------------------------------------------------------------------------------- */}
                 <div>
@@ -96,7 +96,7 @@ function AddCatForm({ addCats }) {
                 {/* Cancel and Submit buttons --------------------------------- */}
                 {/* buttons in a form default type is submit. change type to button to make it a non-submit button */}
                 <div className="flex gap-2 py-2">
-                    <button type="button" className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
+                    <button type="button" onClick={() => closeForm()} className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
                     <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save New Cat</button>
                 </div>
             </form>
