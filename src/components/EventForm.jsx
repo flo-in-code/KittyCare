@@ -92,7 +92,7 @@ function EventForm({ addEvent, selectedCatId, closeForm }) {
                 {/* buttons in a form default type is submit. change type to button to make it a non-submit button */}
                 <div className="flex gap-2">
                     <button type="button" onClick={closeForm} className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
-                    <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save Event</button>
+                    <button type="submit" disabled={!title.trim()} className={`flex-1 border border-stone-300 ${!title.trim()? 'bg-stone-50 text-stone-400':'bg-emerald-600 text-white'} rounded-md py-1`}>Save Event</button>
                 </div>
 
             </form>
