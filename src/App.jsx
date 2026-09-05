@@ -34,6 +34,10 @@ function App() {
     //do not log events here because in here, React hasn't refreshed yet so you will not be logging the event after the newEventObject is added
   }
 
+  function deleteEvent(eventID){
+    setEvents(events.filter((event) => event.id !== eventID))
+  }
+
   function addCats(newCat){
     setCats([...cats, newCat])
   }
@@ -50,11 +54,11 @@ function App() {
       {/* the addNewEvent function is being passed as a prop to EventForm. The EventForm component will unpack the props object receive it as addEvent*/}
       
       {/* Timeline of Events -------------------------------------------- */}
-      {/* <div className='flex-1 py-8'>
+      <div className='flex-1 py-8'>
         <h1 className='text-2xl font-bold mb-6'>Timeline of Events</h1>
-        <Timeline events={relevantEvents} />
-      </div> */}
-      <AddCatForm />
+        <Timeline events={relevantEvents} addEvents={addNewEvent} selectedCatId={selectedCatId} deleteEvent={deleteEvent} />
+      </div>
+      {/* <AddCatForm /> */}
     </div>
   )
 }
