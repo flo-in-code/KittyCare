@@ -1,7 +1,8 @@
 import { useState } from "react"
+import AddCatForm from "./AddCatForm"
 
 
-function CatSelector({ cats, selectedCatId, setSelectedCatId, setCats }) {
+function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats }) {
     const [dropdownState, setDropdownState] = useState(false)
     const [isAddingCat, setIsAddingCat] = useState(false) //isAdding tracks the state of whether the user has clicked on the add a cat button
 

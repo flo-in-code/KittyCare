@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className=' flex min-h-screen bg-stone-100 pr-8 space-x-4'>
-      <Sidebar cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} setCats={setCats} />
+      <Sidebar cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} />
 
 
       {/* <EventForm addEvent={addNewEvent} />  */}

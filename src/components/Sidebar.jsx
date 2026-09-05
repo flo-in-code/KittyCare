@@ -6,7 +6,7 @@ const navItems =[
     {id: 1, item: "Timeline"}, {id: 2, item: "Calendar"}, {id: 3, item: "Appointment"}, {id: 4, item: "Vet Prep"}
 ]
 
-function Sidebar({cats, selectedCatId, setSelectedCatId, setCats}) {
+function Sidebar({cats, selectedCatId, setSelectedCatId, addCats}) {
     const [activeView, setActiveView] = useState('Timeline')
 
     return (
@@ -42,7 +42,7 @@ function Sidebar({cats, selectedCatId, setSelectedCatId, setCats}) {
             <div className="border-t border-stone-300"></div>
             {/* Active Cat ------------------------------------------------*/}
             <div className='w-full px-3 my-2'>
-                <CatSelector cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} setCats={setCats} />
+                <CatSelector cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} />
             </div>
             
             
