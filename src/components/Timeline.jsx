@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EventCard from './EventCard'
+import EventForm from './EventForm'
 
 function groupByMonth(events) {
     //we need to sort the event objects from sampleEvents.js by month
@@ -22,29 +23,37 @@ function groupByMonth(events) {
 
 
 
-function Timeline({ events }) {
+function Timeline({ events, addEvents, selectedCatId }) {
     const groupedEvents = groupByMonth(events)
     console.log(groupedEvents)
+    const [isAddingEvent, setIsAddingEvent] = useState(false)
+
     return (
         <div className='space-y-12'>
-            {events.length===0 && <p>No Events Yet</p>}
-            {/* Object.entries(obj) turns event data into an array of arrays: [[july 2026: [{id: 1, type: "injury", title: "Limping....}, {id: 5, type: "vaccine", title: "FCVRP....}]], [october 2026:[{id: 3, type: "sneezing", title: "Sneezing fits....}]] ] */}
-            {/* There are two items in the inner array month-year and array of objects */}
-            {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => {
-                return <div key={monthYear}>
-                    {/* each month-year section will generate the associated events */}
-                    <h2 className='flex uppercase font-semibold tracking-wide items-center '>
-                        <span className='flex-1 border-t border-stone-300'></span>
-                        <span className='p-2 text-stone-500'>{monthYear}</span>
-                        <span className='flex-1 border-t border-stone-300'></span> 
-                    </h2>
-                    <div className='text-center text-stone-500'>{`events: ${monthEvents.length}`}</div>
-                    <div>{monthEvents.map((event => <EventCard key={event.id} event={event} />))}</div>
-                </div>
-            })}
+            <div className=''>
+                {events.length === 0 && <p>No Events Yet</p>}
+                {/* Object.entries(obj) turns event data into an array of arrays: [[july 2026: [{id: 1, type: "injury", title: "Limping....}, {id: 5, type: "vaccine", title: "FCVRP....}]], [october 2026:[{id: 3, type: "sneezing", title: "Sneezing fits....}]] ] */}
+                {/* There are two items in the inner array month-year and array of objects */}
+                {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => {
+                    return <div key={monthYear} className=''>
+                        {/* each month-year section will generate the associated events */}
+                        <h2 className='flex uppercase font-semibold tracking-wide items-center '>
+                            <span className='flex-1 border-t border-stone-300'></span>
+                            <span className='p-2 text-stone-500'>{monthYear}</span>
+                            <span className='flex-1 border-t border-stone-300'></span>
+                        </h2>
+                        <div className='text-center text-stone-500'>{`events: ${monthEvents.length}`}</div>
+                        <div>{monthEvents.map((event => <EventCard key={event.id} event={event} />))}</div>
+                    </div>
+                })}
+            </div>
 
+            {/* Add event button */}
+            <div onClick={() => setIsAddingEvent(true)} className='sticky bottom-0 flex justify-center bg-emerald-700 text-white text-xl font-semibold rounded-lg m-2 py-4'>
+                Log New Event
+            </div>
 
-
+            {isAddingEvent && <EventForm selectedCatId={selectedCatId} addEvent={addEvents} closeForm={() => setIsAddingEvent(false)} />}
 
         </div>
     )
