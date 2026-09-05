@@ -23,7 +23,10 @@ function App() {
 
   const relevantEvents = events.filter(event => event.catId === selectedCatId) //filter events related to only the selected cat
 
-  console.log(events) //log events here - fresh after each render
+  console.log(`Events: ${events}`) //log events here - fresh after each render
+  console.log(events)
+  console.log(`Cats: ${cats}`)
+  console.log(cats)
 
   function addNewEvent(newEventObject){
     setEvents([...events, newEventObject])  // [...events, newEventObject] is re-building a new array with the events, then it's adding newEventObject at the end of the array
