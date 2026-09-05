@@ -18,7 +18,7 @@ function AddCatForm({ addCats, closeForm }) {
             breed: catBreed,
             color: catColorMarkings,
             birthday: catBirthday,
-            weight: catWeight,
+            weight: parseFloat(catWeight) || 0,
             vetName: vetName,
             vetPhone: vetPhone,
             microchipID: microchipID
