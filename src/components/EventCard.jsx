@@ -9,7 +9,7 @@ const typeStyles = {
   sneezing: "bg-fuchsia-50 text-fuchsia-700",
   weight: "bg-stone-50 text-stone-700",
   stool: "<bg-taupe-50 text-taupe-700",
-  vet: "bg-green-50 text-green-700",
+  vetVisit: "bg-green-50 text-green-700",
   surgery: "bg-purple-50 text-purple-700",
   vaccine: "bg-emerald-50 text-emerald-700",
   behavior: "bg-yellow-50 text-yellow-700",
