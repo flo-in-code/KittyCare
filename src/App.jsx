@@ -42,7 +42,7 @@ function App() {
   }, [cats])
   //cats has already been assigned by the time useEffect runs
 
-  const [selectedCatId, setSelectedCatId] = useState(cats[0].id)
+  const [selectedCatId, setSelectedCatId] = useState(cats[0]?.id)
 
 
   const relevantEvents = events.filter(event => event.catId === selectedCatId) //filter events related to only the selected cat
@@ -52,9 +52,6 @@ function App() {
   console.log(`Cats: ${cats}`)
   console.log(cats)
 
-  useEffect(() => {
-
-  }, [cats])
 
 
   function addNewEvent(newEventObject) {
