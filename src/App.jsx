@@ -94,40 +94,69 @@ function App() {
       //fetch only throws errors if the network is completely unreachable. a 400 or 500 status is still considered successful by fetch.
       //we need this if (!response.ok) block to treat bad status codes as failures too. Will treat any status besides 200-299 as errors
 
-    } catch(err) {
+    } catch (err) {
       console.error('Failed to save event', err)
       setEvents(events) //rolling back the update to events in React's state memory because the changes in the server did not go through
       //events here does not have newEventObject included yet. Within this scope, events is still whatever it was when function was called.
       //setEvents above, outside of the catch block, does not change the events variable as this function runs - it only requests React to schedule a re-render. tells React events should become this on the NEXT render
     }
-    
+
 
   }
 
-  function deleteEvent(eventID) {
+  async function deleteEvent(eventID) {
     setEvents(events.filter((event) => event.id !== eventID))
+
+    try {
+      const response = await fetch('http://localhost:3001/events/${eventID}', {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        throw new Error('Server failed to delete event')
+      }
+
+    } catch (err) {
+      console.error('Failed to delete event', err)
+      setEvents(events) // rollback - at this point event here still has the full pre-deleted list
+    }
   }
 
   async function addCats(newCat) {
     setCats([...cats, newCat])
 
-    try{
+    try {
       const response = await fetch('http://localhost:3001/cats', {
-        method:'POST',
-        headers: {'content-type': 'application/json'},
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify(newCat)
       })
 
-      if(!response.ok){
+      if (!response.ok) {
         throw new Error('Cat rejected by server')
       }
-    }catch(err){
+    } catch (err) {
       console.error('Failed to save cat:', err)
       setCats(cats) //rollback
     }
   }
 
+  async function deleteCat(catID) {
+    setCats(cats.filter((cat) => cat.id === catID))
 
+    try {
+      const response = await fetch('http://localhost:3001/cats', {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        throw new Error('Server failed to delete cat')
+      }
+    } catch(err){
+      console.log('Failed to delete cat:', err)
+      setCats(cats)
+    } 
+  }
 
   return (
     <div className=' flex min-h-screen bg-stone-100 pr-8 space-x-4'>
