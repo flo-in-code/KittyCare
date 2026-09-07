@@ -142,7 +142,10 @@ function App() {
   }
 
   async function deleteCat(catID) {
+    const isActiveCat = catID === activeCatId
+
     setCats(cats.filter((cat) => cat.id !== catID))
+    if(isActiveCat) setSelectedCatId(null) //setSelectedCatId to null on next render
 
     try {
       const response = await fetch(`http://localhost:3001/cats/${catID}`, {
@@ -155,6 +158,7 @@ function App() {
     } catch(err){
       console.log('Failed to delete cat:', err)
       setCats(cats)
+      if(isActiveCat) setSelectedCatId(selectedCatId) //the selectedCatId captured here is the cat that the user clicked on, if not null. This variable has not been changed yet
     } 
   }
 
