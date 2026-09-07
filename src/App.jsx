@@ -17,26 +17,38 @@ function App() {
   //so we assign events = currentValue = sampleEvents (**This is only true for the 1st render)  and  setEvents=setterFunction - this state's memory of events is stored outside of the App component
   //setEvents is able to access the memory slot of events outside of the component and can reassign the list with a new one. React notices the difference in references and re-renders App
 
-  const [events, setEvents] = useState(() => {
-    const savedEvents = localStorage.getItem('events')
-    return savedEvents ? JSON.parse(savedEvents) : sampleEvents
-  })
+  // const [events, setEvents] = useState(() => {
+  //   const savedEvents = localStorage.getItem('events')
+  //   return savedEvents ? JSON.parse(savedEvents) : sampleEvents
+  // })
   //using an arrow function as a lazy initializer to grab events from localstorage. Without the arrow function, useState(localStorage.getItem('events') would call on every render)
   //localStorage only stores things in strings, so we need JSON.parse to turn it into JS data (an array of objects)
   //on first load, React will read whatever is saved in local storage and use it as the starting state instead of starting from a data file
 
-  useEffect(() => {
-    localStorage.setItem('events', JSON.stringify(events))
-  }, [events])
+  const [events, setEvents] = useState([])
+
+  // useEffect(() => {
+  //   localStorage.setItem('events', JSON.stringify(events))
+  // }, [events])
   //useStates, JSX, renders runs inside React. localStorage is a browser API that exists outside of React. useEffect is used to synchronize React components with things outside of react like the DOM, a timer, browser's storage, etc.
   // useEffect takes 2 arguments: 1) a function containing the outside-of-react work and 2) a dependency array telling React when to rerun that function.
+
+  useEffect(() => {
+    async function loadEvents() {
+      const res = await fetch('http://localhost:3001/events')
+      const data = await res.json()
+      setEvents(data)
+    }
+    loadEvents()
+  }, [])
+
 
   //cats
   // const [cats, setCats] = useState(sampleCatProfiles)
   const [cats, setCats] = useState([])
 
   useEffect(() => {
-    async function loadCats(){
+    async function loadCats() {
       const res = await fetch('http://localhost:3001/cats')
       const data = await res.json()
       setCats(data)
@@ -54,7 +66,7 @@ function App() {
   console.log(`active cat id: ${activeCatId}`)
 
 
-  const relevantEvents = events.filter(event => event.catId === activeCatId) //filter events related to only the selected cat
+  const relevantEvents = events?.filter(event => event?.catId === activeCatId) //filter events related to only the selected cat
 
   console.log(`Events: ${events}`) //log events here - fresh after each render
   console.log(events)
@@ -63,18 +75,56 @@ function App() {
 
 
 
-  function addNewEvent(newEventObject) {
+  async function addNewEvent(newEventObject) {
     setEvents([...events, newEventObject])  // [...events, newEventObject] is re-building a new array with the events, then it's adding newEventObject at the end of the array
-    //setEvents updates the memory slot of events to the array we passed in as an argument, then React will re-render because it notices a change in states due to the difference of references between the old and new array.
+    //setEvents updates the memory slot of events (in React) to the array we passed in as an argument, then React will re-render because it notices a change in states due to the difference of references between the old and new array.
     //do not log events here because in here, React hasn't refreshed yet so you will not be logging the event after the newEventObject is added
+    try {
+      const response = await fetch('http://localhost:3001/events', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newEventObject)
+      })
+      //the fetch block here sends a post request to the server where it adds newEventObject to its own copy of the event data
+      // event data is stored in two locations - React component state in the browser and the server
+
+      if (!response.ok) {
+        throw new Error('Event rejected by server')
+      }
+      //fetch only throws errors if the network is completely unreachable. a 400 or 500 status is still considered successful by fetch.
+      //we need this if (!response.ok) block to treat bad status codes as failures too. Will treat any status besides 200-299 as errors
+
+    } catch(err) {
+      console.error('Failed to save event', err)
+      setEvents(events) //rolling back the update to events in React's state memory because the changes in the server did not go through
+      //events here does not have newEventObject included yet. Within this scope, events is still whatever it was when function was called.
+      //setEvents above, outside of the catch block, does not change the events variable as this function runs - it only requests React to schedule a re-render. tells React events should become this on the NEXT render
+    }
+    
+
   }
 
   function deleteEvent(eventID) {
     setEvents(events.filter((event) => event.id !== eventID))
   }
 
-  function addCats(newCat) {
+  async function addCats(newCat) {
     setCats([...cats, newCat])
+
+    try{
+      const response = await fetch('http://localhost:3001/cats', {
+        method:'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(newCat)
+      })
+
+      if(!response.ok){
+        throw new Error('Cat rejected by server')
+      }
+    }catch(err){
+      console.error('Failed to save cat:', err)
+      setCats(cats) //rollback
+    }
   }
 
 
