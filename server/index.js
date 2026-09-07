@@ -4,7 +4,8 @@ import cors from 'cors'
 const app = express()
 //creates an application object. app is the whole server and everything else (defining routes, starting up) is a method called upon this app object
 
-app.use(cors())
+app.use(express.json()) //middleware to read json data sent over routes
+app.use(cors()) //middleware to allow browser to read responses from the server on client-side
 
 const cats = [
     { id: 1, name: 'Mochi', breed: 'Scottish Fold' },
