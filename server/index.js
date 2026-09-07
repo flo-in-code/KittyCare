@@ -44,7 +44,7 @@ app.post('/cats', (req, res) => {
 
 app.delete('/cats/:id', (req, res) =>{
     const {id} = req.params
-    const index = cats.findIndex((cat) => cat.id === id)
+    const index = cats.findIndex((cat) => String(cat.id) === id)
     
     if (index === -1){
         return res.status(404).json({error: 'Cat not found'})
@@ -74,7 +74,7 @@ app.post('/events', (req, res) => {
 
 app.delete('/events/:id', (req, res) => {
     const {id} = req.params
-    const index = events.findIndex(event => event.id === id) //findIndex finds the array index where the items is in the array
+    const index = events.findIndex(event => String(event.id) === id) //findIndex finds the array index where the items is in the array
 
     if (index === -1){ //find index returns -1 if the item is not found
         return res.status(404).json({error: 'event not found'}) // status 404 means 'not found'
