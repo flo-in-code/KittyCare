@@ -42,6 +42,17 @@ app.post('/cats', (req, res) => {
     res.status(201).json(newCat)
 })
 
+app.delete('/cats/:id', (req, res) =>{
+    const {id} = req.params
+    const index = cats.findIndex((cat) => cat.id === id)
+    
+    if (index === -1){
+        return res.status(404).json({error: 'Cat not found'})
+    }
+    cats.splice(index, 1)
+    return res.status(204).end()
+})
+
 //events routes
 app.get('/events', (req, res) => {
     res.json(events)
@@ -61,7 +72,17 @@ app.post('/events', (req, res) => {
     // status 200 means 'ok', status 201 means 'created' - response.ok is true for status codes 200-299
 })
 
-//
+app.delete('/events/:id', (req, res) => {
+    const {id} = req.params
+    const index = events.findIndex(event => event.id === id) //findIndex finds the array index where the items is in the array
+
+    if (index === -1){ //find index returns -1 if the item is not found
+        return res.status(404).json({error: 'event not found'}) // status 404 means 'not found'
+    }
+    events.splice(index, 1) //splice is removing exactly 1 element starting at index, mutating the array in place
+    res.status(204).end() //status 204 is a successful response for no content //.end() sends the response with an empty body
+
+})
 
 
 app.listen(3001, () => {
