@@ -15,8 +15,8 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats }) {
 
             <button onClick={() => setDropdownState(!dropdownState)} className="w-full flex justify-between border border-stone-300 rounded-lg">
                 <div className={`flex-1 text-left px-3 py-1 `}>
-                    <p className="font-semibold">{selectedCat.name}</p>
-                    <p className='text-sm opacity-60'> {selectedCat.breed} </p>
+                    <p className="font-semibold">{selectedCat?.name}</p>
+                    <p className='text-sm opacity-60'> {selectedCat?.breed} </p>
                 </div>
                 <span className="pr-3 text-sm opacity-40 content-center">v</span>
             </button>

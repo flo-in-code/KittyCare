@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar'
 import EventForm from './components/EventForm'
 import { useEffect, useState } from 'react'
 import AddCatForm from './components/AddCatForm'
+import FetchTest from './components/FetchTest'
 
 function App() {
   //events
@@ -16,13 +17,13 @@ function App() {
   //so we assign events = currentValue = sampleEvents (**This is only true for the 1st render)  and  setEvents=setterFunction - this state's memory of events is stored outside of the App component
   //setEvents is able to access the memory slot of events outside of the component and can reassign the list with a new one. React notices the difference in references and re-renders App
 
-   const [events, setEvents] = useState(() => {
+  const [events, setEvents] = useState(() => {
     const savedEvents = localStorage.getItem('events')
-    return savedEvents? JSON.parse(savedEvents): sampleEvents
-   }) 
-   //using an arrow function as a lazy initializer to grab events from localstorage. Without the arrow function, useState(localStorage.getItem('events') would call on every render)
-   //localStorage only stores things in strings, so we need JSON.parse to turn it into JS data (an array of objects)
-   //on first load, React will read whatever is saved in local storage and use it as the starting state instead of starting from a data file
+    return savedEvents ? JSON.parse(savedEvents) : sampleEvents
+  })
+  //using an arrow function as a lazy initializer to grab events from localstorage. Without the arrow function, useState(localStorage.getItem('events') would call on every render)
+  //localStorage only stores things in strings, so we need JSON.parse to turn it into JS data (an array of objects)
+  //on first load, React will read whatever is saved in local storage and use it as the starting state instead of starting from a data file
 
   useEffect(() => {
     localStorage.setItem('events', JSON.stringify(events))
@@ -32,20 +33,28 @@ function App() {
 
   //cats
   // const [cats, setCats] = useState(sampleCatProfiles)
-  const [cats, setCats] = useState(() => {
-    const savedCats = localStorage.getItem('cats')
-    return savedCats? JSON.parse(savedCats): sampleCatProfiles
-  })
+  const [cats, setCats] = useState([])
 
   useEffect(() => {
-    localStorage.setItem('cats', JSON.stringify(cats))
-  }, [cats])
+    async function loadCats(){
+      const res = await fetch('http://localhost:3001/cats')
+      const data = await res.json()
+      setCats(data)
+    }
+    loadCats()
+  }, [])
   //cats has already been assigned by the time useEffect runs
 
-  const [selectedCatId, setSelectedCatId] = useState(cats[0]?.id)
+  // const [selectedCatId, setSelectedCatId] = useState(cats[0]?.id)
+  const [selectedCatId, setSelectedCatId] = useState(null)
+
+  console.log(`cat log: ${cats}`)
+  const activeCatId = selectedCatId ?? cats[0]?.id
+  //need activeCatId to derive the active cat from the selectedCatId state because we should not use setSelectedCatId within the render, or we could run into problems with inifinite renders
+  console.log(`active cat id: ${activeCatId}`)
 
 
-  const relevantEvents = events.filter(event => event.catId === selectedCatId) //filter events related to only the selected cat
+  const relevantEvents = events.filter(event => event.catId === activeCatId) //filter events related to only the selected cat
 
   console.log(`Events: ${events}`) //log events here - fresh after each render
   console.log(events)
@@ -72,7 +81,7 @@ function App() {
 
   return (
     <div className=' flex min-h-screen bg-stone-100 pr-8 space-x-4'>
-      <Sidebar cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} />
+      <Sidebar cats={cats} selectedCatId={activeCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} />
 
 
       {/* <EventForm addEvent={addNewEvent} />  */}
@@ -82,7 +91,7 @@ function App() {
       {/* Timeline of Events -------------------------------------------- */}
       <div className='flex-1 py-8'>
         <h1 className='text-2xl font-bold mb-6'>Timeline of Events</h1>
-        <Timeline events={relevantEvents} addEvents={addNewEvent} selectedCatId={selectedCatId} deleteEvent={deleteEvent} />
+        <Timeline events={relevantEvents} addEvents={addNewEvent} selectedCatId={activeCatId} deleteEvent={deleteEvent} />
       </div>
       {/* <AddCatForm /> */}
     </div>
