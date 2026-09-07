@@ -31,16 +31,36 @@ app.get('/cats', (req, res) => {
 })
 // the route 'localhost:3001/cats' gives us the cat data
 
+app.post('/cats', (req, res) => {
+    const newCat = req.body
+
+    if(!newCat || !newCat.name){
+        return res.status(400).json({error: 'missing required cat field'})
+    }
+
+    cats.push(newCat)
+    res.status(201).json(newCat)
+})
+
 //events routes
 app.get('/events', (req, res) => {
     res.json(events)
 })
 
 app.post('/events', (req, res) => {
-    const newEvent = req.body
-    events.push(newEvent)
-    res.json(newEvent)
+    const newEvent = req.body//req.body is where Express puts the data sent from the client (our app)
+
+    if(!newEvent || !newEvent.title || !newEvent.date){
+        //guarding against missing data in the request body
+        return res.status(400).json({error:'Missing required event field(s)'})
+        //status 400 means bad request
+    }
+
+    events.push(newEvent) //add new event to array by directly mutating it
+    res.status(201).json(newEvent) //send back the new event back as a response to confirm what got saved, instead of res.send('ok')
+    // status 200 means 'ok', status 201 means 'created' - response.ok is true for status codes 200-299
 })
+
 //
 
 
