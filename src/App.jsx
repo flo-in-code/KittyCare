@@ -142,10 +142,10 @@ function App() {
   }
 
   async function deleteCat(catID) {
-    setCats(cats.filter((cat) => cat.id === catID))
+    setCats(cats.filter((cat) => cat.id !== catID))
 
     try {
-      const response = await fetch('http://localhost:3001/cats', {
+      const response = await fetch(`http://localhost:3001/cats/${catID}`, {
         method: 'DELETE'
       })
 
