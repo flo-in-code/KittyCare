@@ -108,7 +108,7 @@ function App() {
     setEvents(events.filter((event) => event.id !== eventID))
 
     try {
-      const response = await fetch('http://localhost:3001/events/${eventID}', {
+      const response = await fetch(`http://localhost:3001/events/${eventID}`, {
         method: 'DELETE'
       })
 
