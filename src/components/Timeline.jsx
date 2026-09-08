@@ -43,7 +43,7 @@ function Timeline({ events, addEvents, selectedCatId, deleteEvent }) {
                             <span className='flex-1 border-t border-stone-300'></span>
                         </h2>
                         <div className='text-center text-stone-500'>{`events: ${monthEvents.length}`}</div>
-                        <div>{monthEvents.map((event => <EventCard key={event.id} event={event} deleteEvent={deleteEvent} />))}</div>
+                        <div>{monthEvents.map((event => <EventCard key={event._id} event={event} deleteEvent={deleteEvent} />))}</div>
                     </div>
                 })}
             </div>

@@ -61,7 +61,7 @@ function App() {
   const [selectedCatId, setSelectedCatId] = useState(null)
 
   console.log(`cat log: ${cats}`)
-  const activeCatId = selectedCatId ?? cats[0]?.id
+  const activeCatId = selectedCatId ?? cats[0]?._id
   //need activeCatId to derive the active cat from the selectedCatId state because we should not use setSelectedCatId within the render, or we could run into problems with inifinite renders
   console.log(`active cat id: ${activeCatId}`)
 
@@ -105,7 +105,7 @@ function App() {
   }
 
   async function deleteEvent(eventID) {
-    setEvents(events.filter((event) => event.id !== eventID))
+    setEvents(events.filter((event) => event._id !== eventID))
 
     try {
       const response = await fetch(`http://localhost:3001/events/${eventID}`, {
@@ -144,7 +144,7 @@ function App() {
   async function deleteCat(catID) {
     const isActiveCat = catID === activeCatId
 
-    setCats(cats.filter((cat) => cat.id !== catID))
+    setCats(cats.filter((cat) => cat._id !== catID))
     if(isActiveCat) setSelectedCatId(null) //setSelectedCatId to null on next render
 
     try {

@@ -36,7 +36,7 @@ function EventCard({ event, deleteEvent }) {
         <div className="flex space-x-8">
           {/* trash icon */}
           {/* delete event using event.id */}
-          <div onClick={() => deleteEvent(event.id)} className="">
+          <div onClick={() => deleteEvent(event._id)} className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

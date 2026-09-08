@@ -13,7 +13,7 @@ function EventForm({ addEvent, selectedCatId, closeForm }) {
         e.preventDefault() //prevents eventform from reloading after submit
 
         addEvent({
-            id: crypto.randomUUID(), //generates unique ID
+            // id: crypto.randomUUID(), //generates unique ID //we don't need this anymore because MongoDB assigns the id
             catId: selectedCatId,
             type: type,
             title: title,

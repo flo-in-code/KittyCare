@@ -6,7 +6,7 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
     const [dropdownState, setDropdownState] = useState(false)
     const [isAddingCat, setIsAddingCat] = useState(false) //isAdding tracks the state of whether the user has clicked on the add a cat button
 
-    const selectedCat = cats.find((cat) => cat.id === selectedCatId)
+    const selectedCat = cats.find((cat) => cat._id === selectedCatId)
 
 
     return (
@@ -31,13 +31,13 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
                         <p className="text-sm opacity-50 pl-3 pt-1 ">Select a cat: </p>
                         <div className="flex flex-col">
                             {cats.map((cat) => {
-                                return <div key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-between px-3 py-2 ${selectedCatId === cat.id ? 'bg-emerald-700 text-white' : 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3 z-20`}>
+                                return <div key={cat._id} onClick={() => setSelectedCatId(cat._id)} className={`flex justify-between px-3 py-2 ${selectedCatId === cat._id ? 'bg-emerald-700 text-white' : 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3 z-20`}>
                                     {/* <img src="" alt="" /> */}
                                     <div>
                                         <p>{cat.name}</p>
                                         <p className='text-sm opacity-60'>{cat.breed}</p>
                                     </div>
-                                    <div onClick={(e) => {e.stopPropagation(); deleteCat(cat.id)}} className="text-sm opacity-60 hover:opacity-100 hover:text-red-600">x</div>
+                                    <div onClick={(e) => {e.stopPropagation(); deleteCat(cat._id)}} className="text-sm opacity-60 hover:opacity-100 hover:text-red-600">x</div>
                                 </div>
                             })}
                             <button onClick={() => {setIsAddingCat(true); setDropdownState(false)}} className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
