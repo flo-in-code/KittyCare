@@ -1,4 +1,4 @@
-//import {sampleCatProfiles} from '../data/sampleCats.js'
+
 import { useState } from 'react'
 import CatSelector from './CatSelector'
 
@@ -45,22 +45,6 @@ function Sidebar({cats, selectedCatId, setSelectedCatId, addCats, deleteCat}) {
                 <CatSelector cats={cats} selectedCatId={selectedCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} deleteCat={deleteCat} />
             </div>
             
-            
-            {/* <div className="">
-                <h2 className="uppercase text-xs font-semibold tracking-wide text-stone-500 my-2 text-center">Active cat</h2>
-                <div className="flex flex-col">
-                    {cats.map((cat)=> {
-                        return <button key={cat.id} onClick={() => setSelectedCatId(cat.id)} className={`flex justify-center px-3 py-2 ${selectedCatId === cat.id? 'bg-emerald-700 text-white': 'bg-taupe-100 hover:bg-stone-500'}  rounded-lg  m-3`}>
-                            <img src="" alt="" />
-                            <div>
-                                <p>{cat.name}</p>
-                                <p className='text-sm opacity-60'>{cat.breed}</p>
-                            </div>
-                        </button>
-
-                    })}
-                </div>
-            </div> */}
             {/* divider */}
             <div className="border-t border-stone-300"></div>
             {/* Navigation buttons ----------------------------------------*/}
@@ -69,7 +53,6 @@ function Sidebar({cats, selectedCatId, setSelectedCatId, addCats, deleteCat}) {
                     return <button  key={nav.id} onClick={() => setActiveView(nav.item)} className={`px-3 py-2 m-3 rounded-lg ${activeView === nav.item? 'bg-emerald-700 text-white': 'bg-stone-200'} `}>
                         {nav.item}
                         </button>
-                        // depending which button is clicked, activeView will be set to the nav.item of that button
                 })}
             </div>
         </div>

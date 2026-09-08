@@ -1,29 +1,17 @@
 import express from 'express'
 import cors from 'cors'
-import 'dotenv/config' //reads .env and injects those values into process.env at runtime
+import 'dotenv/config'
 import mongoose from 'mongoose'
 
-mongoose.connect(process.env.MONGO_URI) //opens a network connection from node server to mongo atlas using the username and password in URI
+mongoose.connect(process.env.MONGO_URI) 
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.log('MongoDB connection error:', err))
 
 const app = express()
-//creates an application object. app is the whole server and everything else (defining routes, starting up) is a method called upon this app object
 
-app.use(express.json()) //middleware to read json data sent over routes
-app.use(cors()) //middleware to allow browser to read responses from the server on client-side
+app.use(express.json())
+app.use(cors()) 
 
-//DATA - not needed with mongodb
-// const cats = [
-//     { id: 1, name: 'Mochi', breed: 'Scottish Fold' },
-//     { id: 2, name: 'Duchess', breed: 'Persian' }
-// ]
-
-// const events = [
-//     { id: 1, catId: 1, type: 'vetVisit', title: 'Annual Check Up', date: '2026-06-01T10:00:00.000Z', notes: 'Routine checkup, all clear.', severity: 'Mild', vetFlagged: false },
-//     { id: 2, catId: 1, type: 'coughing', title: 'Coughing 5 times in a row', date: '2026-06-15T14:30:00.000Z', notes: 'Started this morning.', severity: 'Moderate', vetFlagged: true },
-//     { id: 3, catId: 2, type: 'weight', title: 'Weight check', date: '2026-06-20T09:00:00.000Z', notes: '', severity: 'Mild', vetFlagged: false }
-// ]
 
 //MongoDB Schemas
 const catSchema = new mongoose.Schema({
@@ -54,41 +42,11 @@ const Event = mongoose.model('Event', eventSchema)
 app.get('/', (req, res) => {
     res.send('Hello from the server!')
 })
-//This is a GET route. the route: a pairing of a HTTP method (GET) and a URL path ('/') to a handler function
-//req - everything about the incoming request
-//res - tool for sending something back  res.send('...') sends back plain text and res.json({...}) sends data structures 
 
-//cat routes - expressJS
-// app.get('/cats', (req, res) => {
-//     res.json(cats)
-// })
-// // the route 'localhost:3001/cats' gives us the cat data
-
-// app.post('/cats', (req, res) => {
-//     const newCat = req.body
-
-//     if(!newCat || !newCat.name){
-//         return res.status(400).json({error: 'missing required cat field'})
-//     }
-
-//     cats.push(newCat)
-//     res.status(201).json(newCat)
-// })
-
-// app.delete('/cats/:id', (req, res) =>{
-//     const {id} = req.params
-//     const index = cats.findIndex((cat) => String(cat.id) === id)
-    
-//     if (index === -1){
-//         return res.status(404).json({error: 'Cat not found'})
-//     }
-//     cats.splice(index, 1)
-//     return res.status(204).end()
-// })
 
 //cat routes - Mongoose
-app.get('/cats', async(req, res) => { //because node server need to talk to Mongoose, all routes will become async
-    const cats = await Cat.find() //queries database to get everything in the collection,  'cats'
+app.get('/cats', async(req, res) => { 
+    const cats = await Cat.find()
     res.json(cats)
 })
 
@@ -99,50 +57,20 @@ app.post('/cats', async(req, res) => {
         return res.status(400).json({error: 'missing required field'})
     }
 
-    const createdCat = await Cat.create(newCat) //creates new cat using the Cat model and mongoDB assigns it an _id. (replaces cats.push(newCat)) 
-    res.status(201).json(createdCat) //return is not necessary here because sending the response is the last line
+    const createdCat = await Cat.create(newCat) 
+    res.status(201).json(createdCat) 
 })
 
 app.delete('/cats/:id', async (req, res) =>{
     const {id} = req.params
-    const deletedCat = await Cat.findByIdAndDelete(id) //replaces findindex and splice 
+    const deletedCat = await Cat.findByIdAndDelete(id) 
 
-    if(!deletedCat){ //findbyIdAndDelete returns null if it cannot find a Cat that matches the id
+    if(!deletedCat){
         return res.status(404).json({error: 'Cat not found'})
     }
     return res.status(204).end()
 })
 
-//events routes - expressJS
-// app.get('/events', (req, res) => {
-//     res.json(events)
-// })
-
-// app.post('/events', (req, res) => {
-//     const newEvent = req.body//req.body is where Express puts the data sent from the client (our app)
-
-//     if(!newEvent || !newEvent.title || !newEvent.date){
-//         //guarding against missing data in the request body
-//         return res.status(400).json({error:'Missing required event field(s)'})
-//         //status 400 means bad request
-//     }
-
-//     events.push(newEvent) //add new event to array by directly mutating it
-//     res.status(201).json(newEvent) //send back the new event back as a response to confirm what got saved, instead of res.send('ok')
-//     // status 200 means 'ok', status 201 means 'created' - response.ok is true for status codes 200-299
-// })
-
-// app.delete('/events/:id', (req, res) => {
-//     const {id} = req.params
-//     const index = events.findIndex(event => String(event.id) === id) //findIndex finds the array index where the items is in the array
-
-//     if (index === -1){ //find index returns -1 if the item is not found
-//         return res.status(404).json({error: 'event not found'}) // status 404 means 'not found'
-//     }
-//     events.splice(index, 1) //splice is removing exactly 1 element starting at index, mutating the array in place
-//     res.status(204).end() //status 204 is a successful response for no content //.end() sends the response with an empty body
-
-// })
 
 
 // event routes - mongoose
@@ -177,5 +105,4 @@ app.delete('/events/:id', async(req, res) =>{
 app.listen(3001, () => {
     console.log('Server running on localhost 3001')
 })
-//this actually starts the server, telling it to sit and listen for incoming requests on port 3001.
-//the console log is for startup confirmation
+

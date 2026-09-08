@@ -13,7 +13,6 @@ function AddCatForm({ addCats, closeForm }) {
     function submitHandler(e) {
         e.preventDefault()
         addCats({
-            // id: crypto.randomUUID(), //mongoDB assigns this now so we don't need the client assigning the id
             name: catName,
             breed: catBreed,
             color: catColorMarkings,
@@ -74,7 +73,7 @@ function AddCatForm({ addCats, closeForm }) {
                         <input type="number" value={catWeight} onChange={(e) => setCatWeight(e.target.value)} placeholder="e.g. 9.2" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
                     </div>
                 </div>
-                {/* Veterinarian Name & Phone */}
+                {/* Veterinarian Name & Phone ---------------------------------------------------------------------------*/}
                 <div className=" pb-2">
                     <p className="text-xs text-stone-500 pb-2">{`Veterinarian (optional)`}</p>
                     <div className="flex space-x-2">
@@ -94,8 +93,7 @@ function AddCatForm({ addCats, closeForm }) {
                     <label className="text-sm font-semibold text-stone-700">Microchip ID</label>
                     <input type="text" value={microchipID} onChange={(e) => setMicrochipID(e.target.value)} placeholder="e.g. 21684621328545152" className="w-full border border-stone-300 bg-taupe-100 rounded-md pl-2 py-1 mt-1"></input>
                 </div>
-                {/* Cancel and Submit buttons --------------------------------- */}
-                {/* buttons in a form default type is submit. change type to button to make it a non-submit button */}
+                {/* Cancel and Submit buttons --------------------------------------------------------------------- */}
                 <div className="flex gap-2 py-2">
                     <button type="button" onClick={() => closeForm()} className="flex-1 border border-stone-300 bg-stone-50 text-stone-700 rounded-md py-1">Cancel</button>
                     <button type="submit" className="flex-1 border border-stone-300 bg-emerald-600 text-white rounded-md py-1">Save New Cat</button>

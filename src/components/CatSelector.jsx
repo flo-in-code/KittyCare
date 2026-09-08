@@ -4,7 +4,7 @@ import AddCatForm from "./AddCatForm"
 
 function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat }) {
     const [dropdownState, setDropdownState] = useState(false)
-    const [isAddingCat, setIsAddingCat] = useState(false) //isAdding tracks the state of whether the user has clicked on the add a cat button
+    const [isAddingCat, setIsAddingCat] = useState(false) 
 
     const selectedCat = cats.find((cat) => cat._id === selectedCatId)
 
@@ -21,10 +21,8 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
                 <span className="pr-3 text-sm opacity-40 content-center">v</span>
             </button>
 
-            {/* Dropdown opens below when the user clicks on the button above */}
             {dropdownState && (
                 <>
-                    {/* add a layer across the screen so users can close the dropdown by clicking outside */}
                     <div onClick={() => setDropdownState(false)} className="fixed inset-0 z-10"></div>
 
                     <div className=" border border-stone-300 rounded-lg my-2">
@@ -46,7 +44,7 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
                     </div>
                 </>
             )}
-            {/* AddCatForm opens  */}
+            
             {isAddingCat && <AddCatForm addCats={addCats} closeForm={() => setIsAddingCat(false)} />}
 
         </div>

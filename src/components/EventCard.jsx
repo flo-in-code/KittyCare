@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-// import React from 'react'
 const typeStyles = {
   injury: "bg-blue-50 text-blue-700",
   medication: "bg-purple-50 text-purple-700",
@@ -20,7 +19,7 @@ const typeStyles = {
 
 
 function EventCard({ event, deleteEvent }) {
-  const eventDate = new Date(event.date) //turn event.date (ISO string) into a date object
+  const eventDate = new Date(event.date) 
 
   const [isViewingComments, setIsViewingComments] = useState(false)
 
@@ -31,11 +30,9 @@ function EventCard({ event, deleteEvent }) {
           {eventDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           {" - "}
           {eventDate.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
-          {/* processes the date object into formatted date and time */}
         </p>
         <div className="flex space-x-8">
           {/* trash icon */}
-          {/* delete event using event.id */}
           <div onClick={() => deleteEvent(event._id)} className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
