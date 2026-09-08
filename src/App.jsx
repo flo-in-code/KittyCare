@@ -75,33 +75,50 @@ function App() {
 
 
 
-  async function addNewEvent(newEventObject) {
-    setEvents([...events, newEventObject])  // [...events, newEventObject] is re-building a new array with the events, then it's adding newEventObject at the end of the array
-    //setEvents updates the memory slot of events (in React) to the array we passed in as an argument, then React will re-render because it notices a change in states due to the difference of references between the old and new array.
-    //do not log events here because in here, React hasn't refreshed yet so you will not be logging the event after the newEventObject is added
-    try {
-      const response = await fetch('http://localhost:3001/events', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
+  // async function addNewEvent(newEventObject) {
+  //   setEvents([...events, newEventObject])  // [...events, newEventObject] is re-building a new array with the events, then it's adding newEventObject at the end of the array
+  //   //setEvents updates the memory slot of events (in React) to the array we passed in as an argument, then React will re-render because it notices a change in states due to the difference of references between the old and new array.
+  //   //do not log events here because in here, React hasn't refreshed yet so you will not be logging the event after the newEventObject is added
+  //   try {
+  //     const response = await fetch('http://localhost:3001/events', {
+  //       method: 'POST',
+  //       headers: { 'content-type': 'application/json' },
+  //       body: JSON.stringify(newEventObject)
+  //     })
+  //     //the fetch block here sends a post request to the server where it adds newEventObject to its own copy of the event data
+  //     // event data is stored in two locations - React component state in the browser and the server
+
+  //     if (!response.ok) {
+  //       throw new Error('Event rejected by server')
+  //     }
+  //     //fetch only throws errors if the network is completely unreachable. a 400 or 500 status is still considered successful by fetch.
+  //     //we need this if (!response.ok) block to treat bad status codes as failures too. Will treat any status besides 200-299 as errors
+
+  //   } catch (err) {
+  //     console.error('Failed to save event', err)
+  //     setEvents(events) //rolling back the update to events in React's state memory because the changes in the server did not go through
+  //     //events here does not have newEventObject included yet. Within this scope, events is still whatever it was when function was called.
+  //     //setEvents above, outside of the catch block, does not change the events variable as this function runs - it only requests React to schedule a re-render. tells React events should become this on the NEXT render
+  //   }
+  // }
+
+  async function addNewEvent(newEventObject){
+    try{
+      const response = await fetch ('http://localhost:3001/events', {
+        method: 'POST', 
+        headers: {'content-type':'application/json'},
         body: JSON.stringify(newEventObject)
       })
-      //the fetch block here sends a post request to the server where it adds newEventObject to its own copy of the event data
-      // event data is stored in two locations - React component state in the browser and the server
 
-      if (!response.ok) {
+      if(!response.ok){
         throw new Error('Event rejected by server')
       }
-      //fetch only throws errors if the network is completely unreachable. a 400 or 500 status is still considered successful by fetch.
-      //we need this if (!response.ok) block to treat bad status codes as failures too. Will treat any status besides 200-299 as errors
 
-    } catch (err) {
+      const savedEvent = await response.json() //response should include the _id from MongoDB. Need to serve the client the response so it can be saved in React's state memory
+      setEvents([...events, savedEvent])
+    }catch (err){
       console.error('Failed to save event', err)
-      setEvents(events) //rolling back the update to events in React's state memory because the changes in the server did not go through
-      //events here does not have newEventObject included yet. Within this scope, events is still whatever it was when function was called.
-      //setEvents above, outside of the catch block, does not change the events variable as this function runs - it only requests React to schedule a re-render. tells React events should become this on the NEXT render
     }
-
-
   }
 
   async function deleteEvent(eventID) {
@@ -122,22 +139,40 @@ function App() {
     }
   }
 
-  async function addCats(newCat) {
-    setCats([...cats, newCat])
+  // async function addCats(newCat) {
+  //   setCats([...cats, newCat])
 
-    try {
+  //   try {
+  //     const response = await fetch('http://localhost:3001/cats', {
+  //       method: 'POST',
+  //       headers: { 'content-type': 'application/json' },
+  //       body: JSON.stringify(newCat)
+  //     })
+
+  //     if (!response.ok) {
+  //       throw new Error('Cat rejected by server')
+  //     }
+  //   } catch (err) {
+  //     console.error('Failed to save cat:', err)
+  //     setCats(cats) //rollback
+  //   }
+  // }
+
+  async function addCats(newCat){
+    try{
       const response = await fetch('http://localhost:3001/cats', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {'content-type':'application/json'},
         body: JSON.stringify(newCat)
       })
 
-      if (!response.ok) {
-        throw new Error('Cat rejected by server')
+      if (!response.ok){
+        throw new Error('New cat rejected by server')
       }
-    } catch (err) {
+      const savedCat = await response.json()
+      setCats([...cats, savedCat])
+    }catch(err){
       console.error('Failed to save cat:', err)
-      setCats(cats) //rollback
     }
   }
 
