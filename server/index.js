@@ -1,5 +1,11 @@
 import express from 'express'
 import cors from 'cors'
+import 'dotenv/config' //reads .env and injects those values into process.env at runtime
+import mongoose from 'mongoose'
+
+mongoose.connect(process.env.MONGO_URI) //opens a network connection from node server to mongo atlas using the username and password in URI
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.log('MongoDB connection error:', err))
 
 const app = express()
 //creates an application object. app is the whole server and everything else (defining routes, starting up) is a method called upon this app object
