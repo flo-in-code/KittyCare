@@ -13,16 +13,43 @@ const app = express()
 app.use(express.json()) //middleware to read json data sent over routes
 app.use(cors()) //middleware to allow browser to read responses from the server on client-side
 
-const cats = [
-    { id: 1, name: 'Mochi', breed: 'Scottish Fold' },
-    { id: 2, name: 'Duchess', breed: 'Persian' }
-]
+//DATA - not needed with mongodb
+// const cats = [
+//     { id: 1, name: 'Mochi', breed: 'Scottish Fold' },
+//     { id: 2, name: 'Duchess', breed: 'Persian' }
+// ]
 
-const events = [
-    { id: 1, catId: 1, type: 'vetVisit', title: 'Annual Check Up', date: '2026-06-01T10:00:00.000Z', notes: 'Routine checkup, all clear.', severity: 'Mild', vetFlagged: false },
-    { id: 2, catId: 1, type: 'coughing', title: 'Coughing 5 times in a row', date: '2026-06-15T14:30:00.000Z', notes: 'Started this morning.', severity: 'Moderate', vetFlagged: true },
-    { id: 3, catId: 2, type: 'weight', title: 'Weight check', date: '2026-06-20T09:00:00.000Z', notes: '', severity: 'Mild', vetFlagged: false }
-]
+// const events = [
+//     { id: 1, catId: 1, type: 'vetVisit', title: 'Annual Check Up', date: '2026-06-01T10:00:00.000Z', notes: 'Routine checkup, all clear.', severity: 'Mild', vetFlagged: false },
+//     { id: 2, catId: 1, type: 'coughing', title: 'Coughing 5 times in a row', date: '2026-06-15T14:30:00.000Z', notes: 'Started this morning.', severity: 'Moderate', vetFlagged: true },
+//     { id: 3, catId: 2, type: 'weight', title: 'Weight check', date: '2026-06-20T09:00:00.000Z', notes: '', severity: 'Mild', vetFlagged: false }
+// ]
+
+//MongoDB Schemas
+const catSchema = new mongoose.Schema({
+    name: {type: String, required: true},
+    breed: String,
+    color: String,
+    birthday: String,
+    weight: Number,
+    vetName: String,
+    vetPhone: String,
+    microchipID: String
+})
+
+const eventSchema = new mongoose.Schema({
+    catId: {type: mongoose.Schema.Types.ObjectId, ref: 'Cat', required: true}, // this is how mongoose tells the ID in this field to point over to a document in another collection. ref: 'Cat' enables population feature
+    type: String,
+    title: {type: String, required: true},
+    date: {type: Date, required: true},
+    severity: String,
+    vetFlagged: Boolean, 
+    notes: String
+})
+
+//MongoDB models
+const Cat = mongoose.model('Cat', catSchema)
+const Event = mongoose.model('Event', eventSchema)
 
 app.get('/', (req, res) => {
     res.send('Hello from the server!')
