@@ -21,4 +21,10 @@ export default defineConfig([
       'no-unused-vars': 'warn'
     },
   },
+  {
+    files: ['server/**/*.js'],
+    languageOptions: {
+      globals: globals.node
+    }
+  }
 ])
