@@ -115,9 +115,32 @@ function App() {
     } 
   }
 
+  async function updateCat(catID, updates){
+    try{
+      const response = await fetch(`http://localhost:3001/cats/${catID}`, {
+        method: 'PATCH',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(updates)
+      })
+
+      if(!response.ok){
+        throw new Error('Cat update rejected by server')
+      }
+
+      const updatedCat = await response.json()
+      setCats(cats.map((cat)=> {
+        if (cat._id === catID){
+          return updatedCat
+        }else return cat
+      }))
+    }catch(err){
+      console.error('Failed to update cat:', err)
+    }
+  }
+
   return (
     <div className=' flex min-h-screen bg-stone-100 pr-8 space-x-4'>
-      <Sidebar cats={cats} selectedCatId={activeCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} deleteCat={deleteCat} />
+      <Sidebar cats={cats} selectedCatId={activeCatId} setSelectedCatId={setSelectedCatId} addCats={addCats} deleteCat={deleteCat} updateCat={updateCat} />
 
       {/* Timeline of Events -------------------------------------------- */}
       <div className='flex-1 py-8'>

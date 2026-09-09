@@ -1,10 +1,13 @@
 import { useState } from "react"
 import AddCatForm from "./AddCatForm"
+import EditCatForm from "./EditCatForm"
 
 
-function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat }) {
+function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat, updateCat }) {
     const [dropdownState, setDropdownState] = useState(false)
-    const [isAddingCat, setIsAddingCat] = useState(false) 
+    const [isAddingCat, setIsAddingCat] = useState(false)
+    const [isEditingCat, setIsEditingCat] = useState(false)
+    const [editingCat, setEditingCat] = useState('')
 
     const selectedCat = cats.find((cat) => cat._id === selectedCatId)
 
