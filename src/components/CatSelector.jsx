@@ -69,8 +69,9 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
                     </div>
                 </>
             )}
-            
+
             {isAddingCat && <AddCatForm addCats={addCats} closeForm={() => setIsAddingCat(false)} />}
+            {isEditingCat && <EditCatForm editingCat={editingCat} updateCat={updateCat} closeForm={() => setIsEditingCat(false)}/>}
 
         </div>
     )
