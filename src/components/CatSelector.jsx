@@ -38,10 +38,32 @@ function CatSelector({ cats, selectedCatId, setSelectedCatId, addCats, deleteCat
                                         <p>{cat.name}</p>
                                         <p className='text-sm opacity-60'>{cat.breed}</p>
                                     </div>
-                                    <div onClick={(e) => {e.stopPropagation(); deleteCat(cat._id)}} className="text-sm opacity-60 hover:opacity-100 hover:text-red-600">x</div>
+                                    <div className="flex space-x-5">
+                                        <div onClick={(e) => {e.stopPropagation(); setIsEditingCat(true); setEditingCat(cat)}}>
+                                            {/* edit icon */}
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="14"
+                                                height="14"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="#607d8b"
+                                                strokeWidth="1"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                <path d="M16 5l3 3" />
+                                            </svg>
+
+                                        </div>
+                                        <div onClick={(e) => { e.stopPropagation(); deleteCat(cat._id) }} className="text-sm opacity-60 hover:opacity-100 hover:text-red-600">x</div>
+                                    </div>
+
                                 </div>
                             })}
-                            <button onClick={() => {setIsAddingCat(true); setDropdownState(false)}} className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
+                            <button onClick={() => { setIsAddingCat(true); setDropdownState(false) }} className={`flex justify-center px-3 py-2 border border-dashed border-stone-500 rounded-lg  m-3 hover:border-emerald-700 hover:text-emerald-700 z-20`}>Add a cat</button>
                         </div>
 
                     </div>
