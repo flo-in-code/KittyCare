@@ -12,6 +12,22 @@ function EditCatForm({ editingCat, closeForm, updateCat }) {
 
     console.log('editing cat:', editingCat)
 
+    function submitHandler(e){
+        e.preventDefault()
+        updateCat(editingCat._id, {
+            name: catName,
+            breed: catBreed,
+            color: catColorMarkings,
+            birthday: catBirthday,
+            weight: parseFloat(catWeight) ?? '',
+            vetName: vetName,
+            vetPhone: vetPhone,
+            microchipID: microchipID
+        })
+
+        closeForm()
+
+    }
 
     return (
         <div onClick={() => closeForm()} className="fixed inset-0 z-30 bg-black/40 flex items-center justify-center">
